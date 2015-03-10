@@ -16,7 +16,7 @@ $(function(){
 ```
 
 ## Parameters
-Paramentes in the element (with 'data-' prefix) or js (```$('[data-toggle="lightbox"]').lightbox({param: value})```)
+Parameters in the element (with 'data-' prefix) or js (```$('[data-toggle="lightbox"]').lightbox({param: value})```)
 
 - gallery: Class or ID of the element with links to images
 - type: auto (default) | inline | image | gallery | ajax | iframe
