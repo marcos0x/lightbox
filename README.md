@@ -9,13 +9,17 @@ Lightbox is a tool that offers a nice and elegant way to add zooming functionali
 ```
 
 + Image Gallery
-##### #1
+
+**#1**
+
 ```html
 <a href="large-1.jpg" data-toggle="lightbox" data-gallery="[data-toggle='lightbox']"><img src="small-1.jpg" alt="pic"></a>
 <a href="large-2.jpg" data-toggle="lightbox" data-gallery="[data-toggle='lightbox']"><img src="small-2.jpg" alt="pic"></a>
 <a href="large-3.jpg" data-toggle="lightbox" data-gallery="[data-toggle='lightbox']"><img src="small-3.jpg" alt="pic"></a>
 ```
-##### #2
+
+** #2 **
+
 ```html
 <a href="large-1.jpg" data-toggle="lightbox" data-gallery=".example-gallery"><img src="small-1.jpg" alt="pic"></a>
 <div class="example-gallery hidden">
@@ -26,6 +30,7 @@ Lightbox is a tool that offers a nice and elegant way to add zooming functionali
 ```
 
 + Inline
+
 ```html
 <a href="#example" data-toggle="lightbox">View content</a>
 <div id="example">
@@ -35,16 +40,19 @@ Lightbox is a tool that offers a nice and elegant way to add zooming functionali
 ```
 
 + AJAX
+
 ```html
 <a href="http://example.com" data-toggle="lightbox">Load content</a>
 ```
 
 + IFrame
+
 ```html
 <a href="http://example.com" data-toggle="lightbox" data-type="iframe">Load content</a>
 ```
 
 ## JS
+
 ```javascript
 $(function(){
 	$('[data-toggle="lightbox"]').lightbox();
