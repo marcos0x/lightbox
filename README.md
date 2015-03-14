@@ -10,7 +10,7 @@ Lightbox is a tool that offers a nice and elegant way to add zooming functionali
 
 + Image Gallery
 
-**#1**
+**Option 1**
 
 ```html
 <a href="large-1.jpg" data-toggle="lightbox" data-gallery="[data-toggle='lightbox']"><img src="small-1.jpg" alt="pic"></a>
@@ -18,7 +18,7 @@ Lightbox is a tool that offers a nice and elegant way to add zooming functionali
 <a href="large-3.jpg" data-toggle="lightbox" data-gallery="[data-toggle='lightbox']"><img src="small-3.jpg" alt="pic"></a>
 ```
 
-** #2 **
+**Option 2**
 
 ```html
 <a href="large-1.jpg" data-toggle="lightbox" data-gallery=".example-gallery"><img src="small-1.jpg" alt="pic"></a>
