@@ -120,7 +120,7 @@
     };
 
     _this.setPosition = function(){
-      $('.lightbox-body').css({'margin-top': (($(window).height() - $('.lightbox-body').height())/2)+'px'});
+      _this.settings.box.find('.lightbox-body').css({'margin-top': (($(window).height() - _this.settings.box.find('.lightbox-body').outerHeight())/2)+'px'});
     };
 
     _this.preloadImage = function(src, callback){
@@ -336,6 +336,11 @@
       if(_this.settings.classes){
         _this.settings.box.addClass(_this.settings.classes);
       }
+      _this.settings.box.css('visibility', 'hidden');
+      _this.settings.box.css('display', 'block');
+      _this.setPosition();
+      _this.settings.box.css('display', 'none');
+      _this.settings.box.css('visibility', 'visible');
       _this.settings.box.fadeIn(450);
 
     };
