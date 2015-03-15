@@ -214,10 +214,14 @@
 
       if(_this.settings.title.length){
         _this.settings.box.find('.lightbox-header').html(_this.settings.title);
+      } else {
+          _this.settings.box.find('.lightbox-header').hide();
       }
 
       if(_this.settings.footer.length){
         _this.settings.box.find('.lightbox-footer').html(_this.settings.footer);
+      } else {
+        _this.settings.box.find('.lightbox-footer').hide();
       }
 
       switch(_this.settings.type){
