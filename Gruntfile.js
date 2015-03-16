@@ -38,7 +38,7 @@ module.exports = function (grunt) {
         src: ['Gruntfile.js', 'src/grunt/*.js']
       },
       main: {
-        src: 'src/*.js'
+        src: 'src/js/*.js'
       },
     },
 
@@ -126,11 +126,11 @@ module.exports = function (grunt) {
       },
       jsMain: {
         files: ['<%= jshint.main.src %>'],
-        tasks: ['concat:main', 'uglify:main']
+        tasks: ['dist-js']
       },
       cssMain: {
         files: ['src/**/*.css'],
-        tasks: ['dist:css']
+        tasks: ['dist-css']
       }
     },
 
