@@ -5,6 +5,7 @@
   function Lightbox(){
 
     var _this = this;
+    _this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     _this.init = function(element, settings){
 
@@ -46,6 +47,16 @@
       _this.setType();
       _this.setBehavior();
       _this.setView();
+
+      if((_this.settings.type == 'image' || _this.settings.type == 'gallery') && _this.isMobile){
+        var _width = typeof document.documentElement.clientWidth != 'undefined' ? Math.max(document.documentElement.clientWidth, $(window).width()) : $(window).width();
+        if (_width < 480) {
+          _this.cancel(element);
+          return false;
+        }
+      }
+
+      return true;
 
     };
 
@@ -119,8 +130,18 @@
 
     };
 
-    _this.setPosition = function(){
-      _this.settings.box.find('.lightbox-body').css({'margin-top': (($(window).height() - _this.settings.box.find('.lightbox-body').outerHeight())/2)+'px'});
+    _this.setPosition = function(param){
+      var param = param || false;
+      var wH = _this.isMobile && typeof document.documentElement.clientHeight != 'undefined' ? Math.max(document.documentElement.clientHeight, $(window).height()) : $(window).height();
+      if(param == 'initial'){
+        _this.settings.box.css('visibility', 'hidden');
+        _this.settings.box.css('display', 'block');
+      }
+      _this.settings.box.find('.lightbox-body').css({'margin-top': ((wH - _this.settings.box.find('.lightbox-body').outerHeight())/2)+'px'});
+      if(param == 'initial'){
+        _this.settings.box.css('display', 'none');
+        _this.settings.box.css('visibility', 'visible');
+      }
     };
 
     _this.preloadImage = function(src, callback){
@@ -164,19 +185,20 @@
 
         var w = img.width;
         var h = img.height;
+        var wH = _this.isMobile && typeof document.documentElement.clientHeight != 'undefined' ? Math.max(document.documentElement.clientHeight, $(window).height()) : $(window).height();
 
         _this.settings.box.find('.lightbox-content').removeClass('loading').html(img);
 
-        if(_this.settings.box.find('.lightbox-body').width() != w && _this.settings.box.find('.lightbox-body').css('marginTop') != (($(window).height() - h)/2)){
-          _this.settings.box.find('.lightbox-body').animate({'width': w+'px', 'margin-top': (($(window).height() - h)/2)+'px'}, 300, _this.settings.easing);
+        if(_this.settings.box.find('.lightbox-body').outerWidth() != w && _this.settings.box.find('.lightbox-body').css('marginTop') != ((wH - h)/2)){
+          _this.settings.box.find('.lightbox-body').animate({'width': w+'px', 'margin-top': ((wH - h)/2)+'px'}, 300, _this.settings.easing);
         }
 
         if(galleryActive){
-          if(_this.settings.box.find('.lightbox-prev').css('top') != ((h-_this.settings.box.find('.lightbox-prev').height())/2)){
-            _this.settings.box.find('.lightbox-prev').animate({top: ((h-_this.settings.box.find('.lightbox-prev').height())/2)+'px'}, 300, _this.settings.easing);
+          if(_this.settings.box.find('.lightbox-prev').css('top') != ((h-_this.settings.box.find('.lightbox-prev').outerHeight())/2)){
+            _this.settings.box.find('.lightbox-prev').animate({top: ((h-_this.settings.box.find('.lightbox-prev').outerHeight())/2)+'px'}, 300, _this.settings.easing);
           }
-          if(_this.settings.box.find('.lightbox-next').css('top') != ((h-_this.settings.box.find('.lightbox-next').height())/2)){
-            _this.settings.box.find('.lightbox-next').animate({top: ((h-_this.settings.box.find('.lightbox-next').height())/2)+'px'}, 300, _this.settings.easing);
+          if(_this.settings.box.find('.lightbox-next').css('top') != ((h-_this.settings.box.find('.lightbox-next').outerHeight())/2)){
+            _this.settings.box.find('.lightbox-next').animate({top: ((h-_this.settings.box.find('.lightbox-next').outerHeight())/2)+'px'}, 300, _this.settings.easing);
           }
         }
 
@@ -267,6 +289,12 @@
             }
           });
 
+          if(!_this.gallery.items.length){
+            _this.settings.gallery = false;
+            _this.settings.type = 'image';
+            return _this.setView();
+          }
+
           for(var i in _this.gallery.items){
             if(_this.settings.href == _this.gallery.items[i]){
               _this.gallery.current = parseInt(i);
@@ -321,12 +349,18 @@
 
     _this.bind = function(element, settings){
 
-        element.off('click').click(function(){
-          _this.init(element, settings);
+      element.off('click').click(function(){
+        var init = _this.init(element, settings);
+        if(init){
           _this.open();
           return false;
+        }
       });
 
+    };
+
+    _this.cancel = function(element){
+      element.attr('target', '_blank');
     };
 
     _this.open = function(){
@@ -336,11 +370,7 @@
       if(_this.settings.classes){
         _this.settings.box.addClass(_this.settings.classes);
       }
-      _this.settings.box.css('visibility', 'hidden');
-      _this.settings.box.css('display', 'block');
-      _this.setPosition();
-      _this.settings.box.css('display', 'none');
-      _this.settings.box.css('visibility', 'visible');
+      _this.setPosition('initial');
       _this.settings.box.fadeIn(450);
 
     };

@@ -1,0 +1,47 @@
+{
+	"name": "lightbox",
+	"version": "0.0.1",
+	"description": "Lightbox",
+	"author": "@marcos0x",
+	"style": "dist/css/lightbox.css",
+	"devDependencies": {
+		"btoa": "~1.1.2",
+		"glob": "~4.4.0",
+		"grunt": "^0.4.5",
+		"grunt-autoprefixer": "~2.2.0",
+		"grunt-contrib-concat": "~0.5.1",
+		"grunt-contrib-csslint": "~0.4.0",
+		"grunt-contrib-cssmin": "~0.12.2",
+		"grunt-contrib-jshint": "~0.11.0",
+		"grunt-contrib-uglify": "~0.8.0",
+		"grunt-contrib-watch": "~0.6.1",
+		"grunt-csscomb": "~3.0.0",
+		"grunt-exec": "~0.4.6",
+		"grunt-html": "~3.0.0",
+		"grunt-jscs": "~1.5.0",
+		"load-grunt-tasks": "~3.1.0",
+		"npm-shrinkwrap": "^200.1.0",
+		"time-grunt": "^1.1.0"
+	},
+	"engines": {
+		"node": ">=0.10.1"
+	},
+	"files": [
+		"dist",
+		"Gruntfile.js"
+	],
+	"jspm": {
+		"directories": {
+			"lib": "dist"
+		},
+		"shim": {
+			"src/js": {
+				"imports": "jquery",
+				"exports": "$"
+			}
+		},
+		"buildConfig": {
+			"uglify": true
+		}
+	}
+}
