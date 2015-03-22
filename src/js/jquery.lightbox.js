@@ -234,18 +234,38 @@
       var w = _this.settings.width || 640;
       var h = _this.settings.height || 480;
       var wH = _this.isMobile && typeof document.documentElement.clientHeight != 'undefined' ? Math.max(document.documentElement.clientHeight, $(window).height()) : $(window).height();
+      var type = 'flash';
 
-      var video = '<div class="lightbox-video" style="width:'+w+'px; height:'+h+'px; overflow:hidden;"><object id="lightbox-video" width="'+w+'" height="'+h+'" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf">'+
-      '<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf">'+
-      '<param name="allowfullscreen" value="true">'+
-      '<param value="true" name="allowfullscreen">'+
-      '<param value="always" name="allowscriptaccess">'+
-      '<param value="high" name="quality">'+
-      '<param value="#000000" name="bgcolor">'+
-      '<param  name="flashvars" value=\'config={"clip":{"autoPlay":false,"autoBuffering":true,"baseUrl":"'+(src.split('/').slice(0,-1).join('/'))+'/","url":"'+(src.split('/').slice(-1).join(''))+'"},"playerId":"lightbox-video","playlist":[{"autoPlay":false,"autoBuffering":true,"baseUrl":"'+(src.split('/').slice(0,-1).join('/'))+'/","url":"'+(src.split('/').slice(-1).join(''))+'"}]}\'>'+
-      '</object></div>';
+      if(src.indexOf('youtube') > -1) {
+        src = src.replace('watch?v=', 'embed/');
+        type = 'iframe';
+      } else if(src.indexOf('vimeo') > -1) {
+        src = src.replace('www.', '');
+        src = src.replace('vimeo.com/', 'player.vimeo.com/video/');
+        type = 'iframe';
+      }
 
-      w += 2;
+      var video = $('<div class="lightbox-video" style="width:'+w+'px; height:'+h+'px; overflow:hidden;"><object id="lightbox-video" width="'+w+'" height="'+h+'" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf"></div>');
+
+      switch(type) {
+        case 'flash':
+          var videoPlayer = $('<object id="lightbox-video" width="'+w+'" height="'+h+'" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf">'+
+          '<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf">'+
+          '<param name="allowfullscreen" value="true">'+
+          '<param value="true" name="allowfullscreen">'+
+          '<param value="always" name="allowscriptaccess">'+
+          '<param value="high" name="quality">'+
+          '<param value="#000000" name="bgcolor">'+
+          '<param  name="flashvars" value=\'config={"clip":{"autoPlay":false,"autoBuffering":true,"baseUrl":"'+(src.split('/').slice(0,-1).join('/'))+'/","url":"'+(src.split('/').slice(-1).join(''))+'"},"playerId":"lightbox-video","playlist":[{"autoPlay":false,"autoBuffering":true,"baseUrl":"'+(src.split('/').slice(0,-1).join('/'))+'/","url":"'+(src.split('/').slice(-1).join(''))+'"}]}\'>'+
+          '</object>');
+          w += 2;
+        break;
+        case 'iframe':
+          var videoPlayer = '<iframe id="lightbox-video" width="100%" height="100%" src="'+src+'"></iframe>';
+        break;
+      }
+
+      video.html(videoPlayer);
 
       _this.settings.box.find('.lightbox-content').removeClass('loading').html(video);
 
@@ -254,10 +274,10 @@
       }
 
       if(galleryActive){
-        if(_this.settings.box.find('.lightbox-prev').css('top') != ((h-_this.settings.box.find('.lightbox-prev').outerHeight())/2)){
+        if(parseInt(_this.settings.box.find('.lightbox-prev').css('top'), 10) != ((h-_this.settings.box.find('.lightbox-prev').outerHeight())/2)){
           _this.settings.box.find('.lightbox-prev').animate({top: ((h-_this.settings.box.find('.lightbox-prev').outerHeight())/2)+'px'}, 300, _this.settings.easing);
         }
-        if(_this.settings.box.find('.lightbox-next').css('top') != ((h-_this.settings.box.find('.lightbox-next').outerHeight())/2)){
+        if(parseInt(_this.settings.box.find('.lightbox-next').css('top'), 10) != ((h-_this.settings.box.find('.lightbox-next').outerHeight())/2)){
           _this.settings.box.find('.lightbox-next').animate({top: ((h-_this.settings.box.find('.lightbox-next').outerHeight())/2)+'px'}, 300, _this.settings.easing);
         }
       }
