@@ -73,6 +73,17 @@ module.exports = function (grunt) {
       }
     },
 
+    copy: {
+      css: {
+        expand: true,
+        cwd: 'src/css/',
+        src: [
+          '**/*'
+        ],
+        dest: 'dist/'
+      },
+    },
+
     autoprefixer: {
       options: {
         browsers: configBridge.config.autoprefixerBrowsers
@@ -157,6 +168,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('dist-css', [
+    'copy:css', 
     'autoprefixer:main', 
     'csscomb:main', 
     'cssmin:minifyMain', 

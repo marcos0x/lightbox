@@ -142,32 +142,32 @@
 .lightbox-main.is-modal .lightbox-content {
   padding: 25px;
 }
-.lightbox-main.is-image .lightbox-body {
+.lightbox-main.is-image .lightbox-body, .lightbox-main.is-video .lightbox-body {
   width: 44px;
   padding: 0;
   background: rgba(0,0,0,.8);
 }
-.lightbox-main.is-image .lightbox-close {
+.lightbox-main.is-image .lightbox-close, .lightbox-main.is-video .lightbox-close {
   position: absolute;
   top: -14px;
   right: -40px;
   bottom: auto;
   left: auto;
 }
-.lightbox-main.is-image .lightbox-close a {
+.lightbox-main.is-image .lightbox-close a, .lightbox-main.is-video .lightbox-close a {
   color: #fff;
 }
-.lightbox-main.is-image .lightbox-close a:hover {
+.lightbox-main.is-image .lightbox-close a:hover, .lightbox-main.is-video .lightbox-close a:hover {
   color: #ddd;
 }
-.lightbox-main.is-image .lightbox-content {
+.lightbox-main.is-image .lightbox-content, .lightbox-main.is-video .lightbox-content {
   padding: 0;
 }
 .lightbox-main.is-image .lightbox-content img {
   display: block;
   border-radius: 4px ;
 }
-.lightbox-main.is-image .lightbox-content.loading {
+.lightbox-main.is-image .lightbox-content.loading, .lightbox-main.is-video .lightbox-content.loading {
   min-width: 44px;
   min-height: 44px;
   background: transparent url(loading.gif) no-repeat center center;

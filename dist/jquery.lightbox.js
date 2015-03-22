@@ -36,8 +36,8 @@
           height: element.data('height') || false,
           imageTypes: ['jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff', 'bmp'],
           videoTypes: ['mp4', 'webm', 'ogg', 'flv'],
+          videoPoster: element.data('video-poster') || '',
           gallery: element.data('gallery') || false,
-          isGallery: element.data('gallery').length || false,
           title: element.data('title') || false,
           description: element.data('description') || false,
           content: element.data('content') || false,
@@ -45,6 +45,12 @@
       };
 
       _this.settings = $.extend(true, _this.defaults, settings);
+
+      if(_this.settings.gallery.length){
+        _this.settings.isGallery = true;
+      } else {
+        _this.settings.isGallery = false;
+      }
 
       _this.setEvents();
       _this.setAction();
@@ -213,11 +219,6 @@
 
     _this.loadVideo = function(videoSrc, callback){
 
-      if(typeof window.videojs == 'undefined'){
-        $('head').append('<link href="//vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">');
-        $('head').append('<script src="//vjs.zencdn.net/4.11/video.js"></script>');
-      }
-
       var src;
 
       if(_this.settings.isGallery){
@@ -234,9 +235,17 @@
       var h = _this.settings.height || 480;
       var wH = _this.isMobile && typeof document.documentElement.clientHeight != 'undefined' ? Math.max(document.documentElement.clientHeight, $(window).height()) : $(window).height();
 
-      var video = $('<video class="video-js vjs-default-skin" width="'+w+'" height="'+h+'" data-setup=\'{"controls" : true, "autoplay" : false, "preload" : "auto"}\'>'+
-        '<source src="'+src+'" type="video/'+(extension=='flv'?'x-flv':extension)+'">'+
-      '</video>');
+      var video = '<div class="lightbox-video" style="width:'+w+'px; height:'+h+'px; overflow:hidden;"><object id="lightbox-video" width="'+w+'" height="'+h+'" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf">'+
+      '<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf">'+
+      '<param name="allowfullscreen" value="true">'+
+      '<param value="true" name="allowfullscreen">'+
+      '<param value="always" name="allowscriptaccess">'+
+      '<param value="high" name="quality">'+
+      '<param value="#000000" name="bgcolor">'+
+      '<param  name="flashvars" value=\'config={"clip":{"autoPlay":false,"autoBuffering":true,"baseUrl":"'+(src.split('/').slice(0,-1).join('/'))+'/","url":"'+(src.split('/').slice(-1).join(''))+'"},"playerId":"lightbox-video","playlist":[{"autoPlay":false,"autoBuffering":true,"baseUrl":"'+(src.split('/').slice(0,-1).join('/'))+'/","url":"'+(src.split('/').slice(-1).join(''))+'"}]}\'>'+
+      '</object></div>';
+
+      w += 2;
 
       _this.settings.box.find('.lightbox-content').removeClass('loading').html(video);
 
@@ -254,7 +263,7 @@
       }
 
       if(typeof callback == 'function'){
-        callback.call(undefined, img, w, h);
+        callback.call(undefined, video, w, h);
       }
 
     };
