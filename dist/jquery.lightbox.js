@@ -213,6 +213,11 @@
 
     _this.loadVideo = function(videoSrc, callback){
 
+      if(typeof window.videojs == 'undefined'){
+        $('head').append('<link href="//vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">');
+        $('head').append('<script src="//vjs.zencdn.net/4.11/video.js"></script>');
+      }
+
       var src;
 
       if(_this.settings.isGallery){
