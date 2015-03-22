@@ -8,7 +8,12 @@ Lightbox is a tool that offers a nice and elegant way to add zooming functionali
 <a href="large.jpg" data-toggle="lightbox"><img src="small.jpg" alt="pic"></a>
 ```
 
-#### Image Gallery
+#### Video
+```html
+<a href="video.mp4" data-toggle="lightbox">Video</a>
+```
+
+#### Gallery
 
 **Option 1**
 
@@ -26,6 +31,25 @@ Lightbox is a tool that offers a nice and elegant way to add zooming functionali
 	<a href="large-1.jpg"><img src="small-1.jpg" alt="pic"></a>
 	<a href="large-2.jpg"><img src="small-2.jpg" alt="pic"></a>
 	<a href="large-3.jpg"><img src="small-3.jpg" alt="pic"></a>
+</div>
+```
+
+**Option 3**
+
+```html
+<a href="video1.mp4" data-toggle="lightbox" data-gallery="[data-toggle='lightbox']">Video 1</a>
+<a href="video2.mp4" data-toggle="lightbox" data-gallery="[data-toggle='lightbox']">Video 2</a>
+<a href="video3.mp4" data-toggle="lightbox" data-gallery="[data-toggle='lightbox']">Video 3</a>
+```
+
+**Option 4**
+
+```html
+<a href="video1.mp4" data-toggle="lightbox" data-gallery=".example-gallery">Video 1</a>
+<div class="example-gallery hidden">
+	<a href="video1.mp4">Video 1</a>
+	<a href="video2.mp4">Video 2</a>
+	<a href="video3.mp4">Video 3</a>
 </div>
 ```
 
@@ -62,8 +86,8 @@ $(function(){
 ## Parameters
 Parameters in the element (with 'data-' prefix) or js (```$('[data-toggle="lightbox"]').lightbox({param: value})```)
 
-- gallery: Class or ID of the element with links to images
-- type: auto (default) | inline | image | gallery | ajax | iframe
+- gallery: Element's selector contain links to images or videos
+- type: auto (default) | inline | image | video | ajax | iframe
 - class: class name (default: lightbox-main)
 - title: false (default) | html
 - content: false (default) | html
