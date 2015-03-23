@@ -398,7 +398,7 @@
       var contentMarginTop = content.css('marginTop');
 
       if(_this.windowHeight() < _this.settings.newHeight){
-        var newHeight = _this.windowHeight() - 20;
+        var newHeight = _this.windowHeight() - 30;
         var newWidth = (newHeight * _this.settings.newWidth) / _this.settings.newHeight;
         var newMarginTop = (_this.windowHeight() - newHeight) / 2;
       } else {
