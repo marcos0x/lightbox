@@ -111,7 +111,7 @@
   padding: 40px 60px;
   margin: 100px auto;
   background: #fff;
-  border-radius: 4px ;
+  border-radius: 4px;
   -webkit-box-shadow: 0 0 50px rgba(0,0,0,.3) ;
           box-shadow: 0 0 50px rgba(0,0,0,.3) ;
 }
@@ -165,7 +165,7 @@
 }
 .lightbox-main.is-image .lightbox-content img {
   display: block;
-  border-radius: 4px ;
+  border-radius: 4px;
 }
 .lightbox-main.is-image .lightbox-content.loading, .lightbox-main.is-video .lightbox-content.loading {
   min-width: 44px;

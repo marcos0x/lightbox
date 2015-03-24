@@ -101,9 +101,7 @@
 	background-position: 0 0;
 }
 .lightbox-main .lightbox-body {
-	-webkit-border-radius: 4px ;
-	-moz-border-radius: 4px ;
-	border-radius: 4px ;
+	border-radius: 4px;
 	position: relative;
 	background: #fff;
 	width: 600px;
@@ -163,9 +161,7 @@
 }
 .lightbox-main.is-image .lightbox-content img {
 	display: block;
-	-webkit-border-radius: 4px ;
-	-moz-border-radius: 4px ;
-	border-radius: 4px ;
+	border-radius: 4px;
 }
 .lightbox-main.is-image .lightbox-content.loading, .lightbox-main.is-video .lightbox-content.loading {
 	min-width: 44px;

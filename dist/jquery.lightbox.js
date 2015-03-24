@@ -47,8 +47,8 @@
       _this.settings = $.extend(true, _this.defaults, settings);
 
       _this.setEvents();
-      _this.setBehavior();
       _this.setAction();
+      _this.setBehavior();
       _this.setType();
       _this.setView();
 
@@ -100,23 +100,6 @@
       });
     };
 
-    _this.setBehavior = function(){
-      switch(_this.settings.behavior){
-        case 'modal':
-          _this.settings.box.addClass('is-modal');
-        break;
-        default:
-          _this.settings.box.find('.lightbox-wrapper').click(function(e) { 
-            if(e.target !== this){
-              return;
-            }
-            _this.close();
-            return false;
-          });
-        break;
-      }
-    };
-
     _this.setAction = function(){
       switch(_this.settings.action){
         case 'delete':
@@ -134,6 +117,23 @@
           _this.settings.footer += '<a href="#" class="btn btn-primary lightbox-delete-multiple">'+_this.settings.texts.accept+'</a>';
           _this.settings.behavior = 'modal';
           _this.settings.type = 'inline';
+        break;
+      }
+    };
+
+    _this.setBehavior = function(){
+      switch(_this.settings.behavior){
+        case 'modal':
+          _this.settings.box.addClass('is-modal');
+        break;
+        default:
+          _this.settings.box.find('.lightbox-wrapper').click(function(e) { 
+            if(e.target !== this){
+              return;
+            }
+            _this.close();
+            return false;
+          });
         break;
       }
     };
@@ -204,21 +204,21 @@
         switch(_this.settings.type){
           case 'inline':
             if($(_this.settings.content).length){
-              var _content = $(_this.settings.content).clone(true);
-              _this.settings.box.find('.lightbox-content').html(_content);
+              _this.settings.contentElement = $(_this.settings.content).clone(true);
+              $(_this.settings.content).wrap('<div class="lightbox-content-clone" style="display:none"></div>');
+              $(_this.settings.content).remove();
+              _this.settings.box.find('.lightbox-content').html(_this.settings.contentElement);
             } else {
               _this.settings.box.find('.lightbox-content').html(_this.settings.content);
             }
           break;
           case 'image':
-            _this.settings.box.addClass('is-image');
             _this.settings.box.find('.lightbox-header').hide();
             _this.settings.box.find('.lightbox-footer').hide();
             _this.settings.box.find('.lightbox-content').addClass('loading');
             _this.loadImage(_this.settings.href);
           break;
           case 'video':
-            _this.settings.box.addClass('is-video');
             _this.settings.box.find('.lightbox-header').hide();
             _this.settings.box.find('.lightbox-footer').hide();
             _this.settings.box.find('.lightbox-content').addClass('loading');
@@ -336,6 +336,8 @@
         var w = image.width;
         var h = image.height;
 
+        _this.settings.box.addClass('is-image');
+        _this.settings.box.removeClass('is-video');
         _this.setSize(w, h);
         _this.settings.box.find('.lightbox-content').removeClass('loading').html(image);
 
@@ -374,6 +376,7 @@
           '<param  name="flashvars" value=\'config={"clip":{"autoPlay":false,"autoBuffering":true,"baseUrl":"'+(src.split('/').slice(0,-1).join('/'))+'/","url":"'+(src.split('/').slice(-1).join(''))+'"},"playerId":"lightbox-video","playlist":[{"autoPlay":false,"autoBuffering":true,"baseUrl":"'+(src.split('/').slice(0,-1).join('/'))+'/","url":"'+(src.split('/').slice(-1).join(''))+'"}]}\'>'+
           '</object>');
           w += 2;
+          h += 2;
         break;
         case 'iframe':
           var videoPlayer = '<iframe id="lightbox-video" width="100%" height="100%" src="'+src+'"></iframe>';
@@ -381,8 +384,10 @@
       }
 
       video.html(videoPlayer);
-      _this.settings.box.find('.lightbox-content').removeClass('loading').html(video);
+      _this.settings.box.addClass('is-video');
+      _this.settings.box.removeClass('is-image');
       _this.setSize(w, h);
+      _this.settings.box.find('.lightbox-content').removeClass('loading').html(video);
 
       if(typeof callback == 'function'){
         callback(video, w, h);
@@ -428,6 +433,20 @@
           content.animate({
             'width': newWidth +'px'
           }, {duration: 300, queue: false, easing: _this.settings.easing});
+        }
+      }
+
+      if(contentHeight != newHeight){
+        if(typeof animate !== 'undefined' && !animate){
+          content.css({
+            'height': newHeight +'px'
+          });
+        } else {
+          content.animate({
+            'height': newHeight +'px'
+          }, {duration: 300, queue: false, easing: _this.settings.easing, complete: function(){
+            content.css({overflow: 'visible'});
+          }});
         }
       }
 
@@ -496,6 +515,10 @@
     _this.close = function(){
       $('html,body').removeClass('no-scroll');
       _this.settings.box.fadeOut(450, function(){
+        if(_this.settings.type == 'inline'){
+          $('.lightbox-content-clone').html(_this.settings.contentElement);
+          $('.lightbox-content-clone').find(_this.settings.content).unwrap();
+        }
         _this.settings.box.remove();
       });
     };
