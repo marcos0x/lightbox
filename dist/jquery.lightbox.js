@@ -10,7 +10,7 @@
       _this.defaults = {
           box: $('<div class="lightbox-main" id="lightbox" style="display:none"><div class="lightbox-overlay"></div><div class="lightbox-wrapper"><div class="lightbox-body"><div class="lightbox-close"><a href="#">&times;</a></div><div class="lightbox-prev" style="display:none;"><a href="#"><i></i></a></div><div class="lightbox-next" style="display:none;"><a href="#"><i></i></a></div><div class="lightbox-header cf"></div><div class="lightbox-content cf"></div><div class="lightbox-footer cf"></div></div></div></div>'),
           easing: typeof jQuery.ui != 'undefined' ? 'easeOutCubic' : false,
-          texts: typeof app !== 'undefined' && app.data !== 'undefined' && app.data.texts !== 'undefined' ? app.data.texts : {
+          texts: typeof app !== 'undefined' && typeof app.data !== 'undefined' && typeof app.data.texts !== 'undefined' ? app.data.texts : {
             loading: 'Cargando...',
             error: 'Ha ocurrido un error',
             accept: 'Aceptar',
@@ -313,6 +313,7 @@
     _this.preloadImage = function(src, callback){
       var img = $('<img />')
       .attr('src', src)
+      .css({maxWidth: '100%'})
       .load(function(){
         clearTimeout(_this.preloadShowLoadingTimer);
         var image = this;
