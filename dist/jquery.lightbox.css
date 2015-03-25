@@ -109,7 +109,7 @@
   position: relative;
   width: 600px;
   padding: 40px 60px;
-  margin: 100px auto;
+  margin: 0 auto;
   background: #fff;
   border-radius: 4px;
   -webkit-box-shadow: 0 0 50px rgba(0,0,0,.3) ;

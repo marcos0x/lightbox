@@ -41,7 +41,11 @@
           title: element.data('title') || false,
           description: element.data('description') || false,
           content: element.data('content') || false,
-          footer: element.data('footer') || false
+          footer: element.data('footer') || false,
+          documentBody: {
+            position: $('body').css('position'),
+            overflow: $('body').css('overflow')
+          }
       };
 
       _this.settings = $.extend(true, _this.defaults, settings);
@@ -402,15 +406,24 @@
       var contentWidth = content.outerWidth();
       var contentHeight = content.outerHeight();
       var contentMarginTop = content.css('marginTop');
+      var newHeight = _this.settings.newHeight;
+      var newWidth = _this.settings.newWidth;
+      var newMarginTop = (_this.windowHeight() - _this.settings.newHeight) / 2;
 
-      if(_this.windowHeight() - 30 < _this.settings.newHeight){
-        var newHeight = _this.windowHeight() - 30;
-        var newWidth = (newHeight * _this.settings.newWidth) / _this.settings.newHeight;
-        var newMarginTop = (_this.windowHeight() - newHeight) / 2;
-      } else {
-        var newHeight = _this.settings.newHeight;
-        var newWidth = _this.settings.newWidth;
-        var newMarginTop = (_this.windowHeight() - _this.settings.newHeight) / 2;
+      if(_this.windowWidth() - 100 < _this.settings.newWidth){
+        newWidth = _this.windowWidth() - 100;
+        newHeight = (newWidth * _this.settings.newHeight) / _this.settings.newWidth;
+        newMarginTop = (_this.windowHeight() - newHeight) / 2;
+        if(_this.windowHeight() - 30 < newHeight){
+          var _newHeight = _this.windowHeight() - 30;
+          newWidth = (_newHeight * newWidth) / newHeight;
+          newMarginTop = (_this.windowHeight() - _newHeight) / 2;
+          newHeight = _newHeight;
+        }
+      } else if(_this.windowHeight() - 30 < _this.settings.newHeight){
+        newHeight = _this.windowHeight() - 30;
+        newWidth = (newHeight * _this.settings.newWidth) / _this.settings.newHeight;
+        newMarginTop = (_this.windowHeight() - newHeight) / 2;
       }
 
       if(contentMarginTop != newMarginTop){
@@ -504,7 +517,7 @@
     };
 
     _this.open = function(){
-      $('html,body').addClass('no-scroll');
+      $('html,body').css({position: 'relative', overflow: 'hidden'});
       $('body').append(_this.settings.box);
       if(_this.settings.classes){
         _this.settings.box.addClass(_this.settings.classes);
@@ -514,7 +527,7 @@
     };
 
     _this.close = function(){
-      $('html,body').removeClass('no-scroll');
+      $('html,body').css({position: _this.settings.documentBody.position, overflow: _this.settings.documentBody.overflow});
       _this.settings.box.fadeOut(450, function(){
         if(_this.settings.type == 'inline'){
           $('.lightbox-content-clone').html(_this.settings.contentElement);
