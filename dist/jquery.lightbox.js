@@ -334,7 +334,7 @@
       _this.preloadShowLoadingTimer = setTimeout(function(){
         _this.preloadShowLoading = true;
         _this.settings.box.find('.lightbox-body').css({'width': _this.settings.box.find('.lightbox-content').width()+'px', 'height': _this.settings.box.find('.lightbox-content').height()+'px'});
-        _this.settings.box.find('.lightbox-content').addClass('loading').addClass('dark').html('');
+        _this.settings.box.find('.lightbox-content').css({'width': _this.settings.box.find('.lightbox-content').width()+'px', 'height': _this.settings.box.find('.lightbox-content').height()+'px'}).addClass('loading').addClass('dark').html('');
       }, 200);
 
       _this.preloadImage(src, function(image){
@@ -343,8 +343,10 @@
 
         _this.settings.box.addClass('is-image');
         _this.settings.box.removeClass('is-video');
+        _this.settings.box.removeClass('is-inline');
+        _this.settings.box.removeClass('is-ajax');
         _this.setSize(w, h);
-        _this.settings.box.find('.lightbox-content').removeClass('loading').html(image);
+        _this.settings.box.find('.lightbox-content').removeClass('loading').css({'width':'auto', 'height':'auto'}).html(image);
 
         if(typeof callback == 'function'){
           callback(image, w, h);
@@ -391,8 +393,10 @@
       video.html(videoPlayer);
       _this.settings.box.addClass('is-video');
       _this.settings.box.removeClass('is-image');
+      _this.settings.box.removeClass('is-inline');
+      _this.settings.box.removeClass('is-ajax');
       _this.setSize(w, h);
-      _this.settings.box.find('.lightbox-content').removeClass('loading').html(video);
+      _this.settings.box.find('.lightbox-content').removeClass('loading').css({'width':'auto', 'height':'auto'}).html(video);
 
       if(typeof callback == 'function'){
         callback(video, w, h);
