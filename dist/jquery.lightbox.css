@@ -24,8 +24,8 @@
 }
 .lightbox-main .lightbox-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 5px;
+  right: 0;
   bottom: auto;
   left: auto;
   display: inline-block;
@@ -44,9 +44,11 @@
   display: block;
   line-height: 100%;
   color: #999;
+  text-decoration: none;
 }
 .lightbox-main .lightbox-close a:hover {
   color: #333;
+  text-decoration: none;
 }
 .lightbox-main .lightbox-prev,
 .lightbox-main .lightbox-next {
@@ -110,7 +112,7 @@
 .lightbox-main .lightbox-body {
   position: relative;
   width: 600px;
-  padding: 40px 60px;
+  padding: 40px;
   margin: 0 auto;
   background: #fff;
   border-radius: 4px;
@@ -144,34 +146,52 @@
 .lightbox-main.is-modal .lightbox-content {
   padding: 25px;
 }
-.lightbox-main.is-image .lightbox-body, .lightbox-main.is-gallery .lightbox-body, .lightbox-main.is-video .lightbox-body {
+.lightbox-main.is-image .lightbox-body,
+.lightbox-main.is-gallery .lightbox-body,
+.lightbox-main.is-video .lightbox-body {
   width: 80px;
   height: 80px;
   padding: 0;
   background: #000;
 }
-.lightbox-main.is-image .lightbox-close, .lightbox-main.is-gallery .lightbox-close, .lightbox-main.is-video .lightbox-close {
+.lightbox-main.is-image .lightbox-close,
+.lightbox-main.is-gallery .lightbox-close,
+.lightbox-main.is-video .lightbox-close {
   position: absolute;
   top: -7px;
   right: -40px;
   bottom: auto;
   left: auto;
 }
-.lightbox-main.is-image .lightbox-close a, .lightbox-main.is-gallery .lightbox-close a, .lightbox-main.is-video .lightbox-close a {
+.lightbox-main.is-image .lightbox-close a,
+.lightbox-main.is-gallery .lightbox-close a,
+.lightbox-main.is-video .lightbox-close a {
   color: #fff;
 }
-.lightbox-main.is-image .lightbox-close a:hover, .lightbox-main.is-gallery .lightbox-close a:hover, .lightbox-main.is-video .lightbox-close a:hover {
+.lightbox-main.is-image .lightbox-close a:hover,
+.lightbox-main.is-gallery .lightbox-close a:hover,
+.lightbox-main.is-video .lightbox-close a:hover {
   color: #ddd;
 }
-.lightbox-main.is-image .lightbox-content, .lightbox-main.is-gallery .lightbox-content, .lightbox-main.is-video .lightbox-content {
+.lightbox-main.is-image .lightbox-content,
+.lightbox-main.is-gallery .lightbox-content,
+.lightbox-main.is-video .lightbox-content {
   padding: 0;
 }
-.lightbox-main.is-image .lightbox-content img, .lightbox-main.is-gallery .lightbox-content img {
+.lightbox-main.is-image .lightbox-content img,
+.lightbox-main.is-gallery .lightbox-content img {
   display: block;
   border-radius: 4px;
 }
-.lightbox-main.is-image .lightbox-content.loading, .lightbox-main.is-gallery .lightbox-content.loading, .lightbox-main.is-video .lightbox-content.loading {
+.lightbox-main.is-image .lightbox-content.loading,
+.lightbox-main.is-gallery .lightbox-content.loading,
+.lightbox-main.is-video .lightbox-content.loading,
+.lightbox-main.is-ajax .lightbox-content.loading {
   min-width: 80px;
   min-height: 80px;
   background: transparent url(loading.gif) no-repeat center center;
+}
+.lightbox-main.is-loading .lightbox-prev,
+.lightbox-main.is-loading .lightbox-next {
+  display: none !important;
 }
